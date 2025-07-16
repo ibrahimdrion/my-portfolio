@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ibrahim | Portfolio</title>
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+/* Parallax stars background */
+#stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  background: url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/stars.png') repeat top center;
+  animation: moveStars 200s linear infinite;
+  opacity: 0.3;
+  z-index: -1;
+  transition: background-color 0.4s ease;
+}
+body.light #stars {
+  opacity: 0.15;
+  filter: brightness(1.2);
+}
+
+@keyframes moveStars {
+  from { background-position: 0 0; }
+  to { background-position: -10000px 5000px; }
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--primary);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--primary);
+  transition: background-color 0.3s ease;
+  z-index: 999;
+}
+body.light #theme-toggle {
+  background: var(--primary-light);
+  color: white;
+  box-shadow: 0 0 8px var(--primary-light);
+}
+
+/* Sound toggle button */
+#sound-toggle {
+  position: fixed;
+  top: 20px;
+  right: 130px;
+  background: var(--accent);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--accent);
+  transition: background-color 0.3s ease;
+  z-index: 999;
+}
+body.light #sound-toggle {
+  background: var(--accent-light);
+  color: white;
+  box-shadow: 0 0 8px var(--accent-light);
+}
+
+    /* Preloader Style */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #000;
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 2.5s ease forwards;
+      animation-delay: 1.8s;
+    }
+
+    #preloader h1 {
+      font-size: 3rem;
+      opacity: 0;
+      animation: popIn 1.5s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    :root {
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --bg: #0e0e0e;
+      --card: #1c1c1c;
+      --text: #ffffff;
+      --muted: #999;
+      --accent: #ff8a00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(160deg, #000000, #000000, #3f3f3f);
+      color: var(--text);
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    canvas#stars {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      color: var(--primary);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid var(--primary);
+      width: 0;
+      margin: 0 auto;
+      animation: typing 4s steps(20, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    p.subheading {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-top: 15px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 30px 0;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: var(--primary);
+      color: #ff0000;
+    }
+
+    section {
+      background-color: var(--card);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 15px #00000060;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      color: #ddd;
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .project a:hover {
+      text-decoration: underline;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input, form textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    form button {
+      padding: 10px;
+      background-color: var(--primary);
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    form button:hover {
+      background-color: var(--secondary);
+    }
+
+    .resume-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: var(--accent);
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .resume-btn:hover {
+      background-color: #696969;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .blob {
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #ff00cc, #333399);
+      opacity: 0.3;
+      filter: blur(100px);
+      z-index: -1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(30px); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .footer-links {
+      margin-top: 10px;
+    }
+
+    .footer-links a {
+      color: var(--primary);
+      margin: 0 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 5px var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      nav { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <h1>IBRAHIM</h1>
+  </div>
+<div id="stars"></div>
+
+  <!-- Stars Background -->
+  <canvas id="stars"></canvas>
+  <div class="blob"></div>
+
+  <!-- Header -->
+  <header data-aos="fade-down">
+    <h1>IBRAHIM</h1>
+    <p class="subheading">Developer • Science Lover • Calisthenics Prodigy</p>
+    <a class="resume-btn" href="https://youtu.be/xvFZjo5PgG0?si=LhdnNMbSnpgJEZiQ" target="_blank">📄 Download Resume</a>
+  </header>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Sections -->
+  <section id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <p>I’m Ibrahim — a young passionate future developer with a dream to build futuristic tools. I blend logic, creativity, and strength (yes, calisthenics too) to chase greatness.</p>
+  </section>
+
+  <section id="projects" data-aos="fade-left">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>FRPKit</h3>
+      <p>A web app built for streamlined FRP workflows.</p>
+      <a href="#">View Project</a>
+    </div>
+    <div class="project">
+      <h3>Jarvis Assistant</h3>
+      <p>An AI assistant made in Python with a futuristic interface.</p>
+      <a href="#">Explore Project</a>
+    </div>
+  </section>
+
+  <section id="skills" data-aos="fade-right">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML, CSS & JavaScript</li>
+      <li>Python</li>
+      <li>Odoo & SQL</li>
+      <li>Git & GitHub</li>
+      <li>UI/UX Basics</li>
+    </ul>
+  </section>
+
+  <section id="contact" data-aos="zoom-in">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- AI Chat Easter Egg -->
+  <a href="https://youtu.be/xvFZjo5PgG0?si=LhdnNMbSnpgJEZiQ" 
+     target="_blank"
+     style="position: fixed; bottom: 20px; right: 20px; background-color: #00f2fe; color: #000; font-weight: bold; padding: 12px 20px; border-radius: 30px; text-decoration: none; box-shadow: 0 0 10px #00f2fe; z-index: 999;">
+     🤖 Chat with AI
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Muhammad. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://github.com/ibrahimdrion" target="_blank">GitHub</a> |
+      <a href="https://www.instagram.com/ibxrahim._/" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <!-- JS: Stars Background -->
+  <script>
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        velocity: Math.random() * 0.5 + 0.2,
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#fff";
+      stars.forEach((star) => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.velocity;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+  <!-- AOS Scroll Animation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Preloader Hide -->
+  <script>
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+    }, 3000);
+  </script>
+<script>// Parallax stars animation handled by CSS background animation (no JS needed for stars)
+
+// THEME TOGGLE
+const themeBtn = document.createElement('button');
+themeBtn.id = 'theme-toggle';
+themeBtn.textContent = 'Light Mode';
+document.body.appendChild(themeBtn);
+
+const body = document.body;
+
+if(localStorage.getItem('theme') === 'light') {
+  body.classList.add('light');
+  themeBtn.textContent = "Dark Mode";
+}
+
+themeBtn.onclick = () => {
+  body.classList.toggle('light');
+  if(body.classList.contains('light')) {
+    themeBtn.textContent = "Dark Mode";
+    localStorage.setItem('theme', 'light');
+  } else {
+    themeBtn.textContent = "Light Mode";
+    localStorage.setItem('theme', 'dark');
+  }
+};
+
+// SOUND TOGGLE
+const soundBtn = document.createElement('button');
+soundBtn.id = 'sound-toggle';
+soundBtn.textContent = "🔈 Sound On";
+document.body.appendChild(soundBtn);
+
+
+
+soundBtn.onclick = () => {
+  if(!isPlaying) {
+    audio.play();
+    soundBtn.textContent = "🔇 Sound Off";
+  } else {
+    audio.pause();
+    soundBtn.textContent = "🔈 Sound On";
+  }
+  isPlaying = !isPlaying;
+};
+
+
+</script>
+
+</body>
+</html>
