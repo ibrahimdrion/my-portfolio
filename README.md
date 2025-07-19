@@ -1,1 +1,3 @@
 # my-portfolio
+git status
+
